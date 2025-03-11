@@ -19,7 +19,7 @@ module.exports = {
             buttons.addComponents(
                 new ButtonBuilder()
                     .setCustomId(`rr_${role.roleId}`)
-                    .setLabel(role.label)
+                    .setEmoji(role.label)
                     .setStyle(ButtonStyle.Secondary) // All buttons will be Secondary
             );
         });
