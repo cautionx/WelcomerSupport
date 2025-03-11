@@ -7,14 +7,14 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isButton()) return;
 
-    const { customId, member, channel } = interaction;
+    const { customId, member, channel, guild } = interaction;
     const ticket = await Ticket.findOne({ channelId: channel.id });
 
     if (!ticket) return;
 
     const isStaff = member.roles.cache.some(role => config.staffRoles.includes(role.id));
     if ((customId === "lock_ticket" || customId === "unlock_ticket" || customId === "close_ticket") && !isStaff) {
-        return interaction.reply({ content: "You don\'t have permission to use this!", flags: MessageFlags.Ephemeral });
+      return interaction.reply({ content: "You don't have permission to use this!", flags: MessageFlags.Ephemeral });
     }
 
     // Prevent marking as solved if already solved
@@ -43,6 +43,26 @@ module.exports = {
 
     if (customId === "close_ticket") {
       await interaction.reply({ content: "Ticket closing in 4 seconds...", flags: MessageFlags.Ephemeral });
+
+      // Generate transcript
+      const messages = await channel.messages.fetch({ limit: 100 });
+      const transcriptContent = messages
+        .sort((a, b) => a.createdTimestamp - b.createdTimestamp)
+        .map(msg => `[${new Date(msg.createdTimestamp).toLocaleString()}] ${msg.author.tag}: ${msg.content || (msg.attachments.size > 0 ? "[Attachment]" : "")}`)
+        .join("\n");
+
+      // Send transcript to transcript channel
+      const transcriptChannel = guild.channels.cache.get(config.transcriptChannel);
+      if (transcriptChannel) {
+        const transcriptEmbed = new EmbedBuilder()
+          .setColor("Blue")
+          .setTitle(`Transcripts`)
+          .setDescription(transcriptContent.length > 4000 ? "Transcript too long to display." : `\`\`\`${transcriptContent}\`\`\``)
+          .setTimestamp()
+
+        await transcriptChannel.send({ content: `<@${ticket.userId}> - **#${ticket.ticketId}**`, embeds: [transcriptEmbed] });
+      }
+
       await Ticket.deleteOne({ channelId: channel.id });
 
       setTimeout(() => {
