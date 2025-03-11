@@ -1,6 +1,6 @@
 const { Events, EmbedBuilder, MessageFlags, AttachmentBuilder } = require("discord.js");
-const Ticket = require("../structure/ticket_structure");
-const config = require("../config/ticket_config.json");
+const Ticket = require("../../structure/ticket_structure");
+const config = require("../../config/ticket_config.json");
 const fs = require("fs");
 const path = require("path");
 

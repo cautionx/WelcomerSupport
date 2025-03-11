@@ -1,5 +1,5 @@
 const { Events } = require("discord.js");
-const Ticket = require("../structure/ticket_structure");
+const Ticket = require("../../structure/ticket_structure");
 
 module.exports = {
   name: Events.ChannelDelete,

@@ -1,6 +1,6 @@
 const { EmbedBuilder, PermissionFlagsBits, Events, ButtonBuilder, ActionRowBuilder, ButtonStyle, MessageFlags } = require("discord.js");
-const Ticket = require("../structure/ticket_structure");
-const config = require("../config/ticket_config.json");
+const Ticket = require("../../structure/ticket_structure");
+const config = require("../../config/ticket_config.json");
 
 module.exports = {
   name: Events.InteractionCreate,
