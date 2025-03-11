@@ -1,10 +1,11 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, MessageFlags, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, MessageFlags, ButtonStyle, PermissionFlagsBits } = require('discord.js');
 const config = require("../../config/rr_config.json");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("rr")
-        .setDescription("Developer Command"),
+        .setDescription("Developer Command")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
     async execute(interaction) {
         const channel = await interaction.guild.channels.fetch(config.channelId);
@@ -20,7 +21,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId(`rr_${role.roleId}`)
                     .setEmoji(role.label)
-                    .setStyle(ButtonStyle.Secondary) // All buttons will be Secondary
+                    .setStyle(ButtonStyle.Secondary) 
             );
         });
 
