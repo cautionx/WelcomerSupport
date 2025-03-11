@@ -1,6 +1,8 @@
-const { Events, EmbedBuilder, MessageFlags } = require("discord.js");
+const { Events, EmbedBuilder, MessageFlags, AttachmentBuilder } = require("discord.js");
 const Ticket = require("../structure/ticket_structure");
 const config = require("../config/ticket_config.json");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   name: Events.InteractionCreate,
@@ -50,7 +52,7 @@ module.exports = {
         const attachments = msg.attachments.size > 0 
           ? `\nAttachments: ${msg.attachments.map(att => att.url).join(", ")}`
           : "";
-        return `[${time}] **${msg.author.username}**: ${msg.content || "(No Text)"}${attachments}`;
+        return `[${time}] ${msg.author.username}: ${msg.content || "(No Text)"}${attachments}`;
       }).join("\n");
 
       if (!transcriptContent) transcriptContent = "No messages recorded in this ticket.";
@@ -64,17 +66,25 @@ module.exports = {
         hour12: true 
       });
 
+      // Save transcript to file
+      const transcriptFileName = `transcript_${ticket.ticketId}.txt`;
+      const transcriptFilePath = path.join(__dirname, transcriptFileName);
+      fs.writeFileSync(transcriptFilePath, transcriptContent, "utf-8");
+
       const transcriptChannel = guild.channels.cache.get(config.transcriptChannel);
       if (transcriptChannel) {
         const transcriptEmbed = new EmbedBuilder()
           .setColor("Blue")
-          .setTitle(`Transcript - (${timestamp})`)
-          .setDescription(transcriptContent.length > 4000 ? "Transcript too long to display." : `\`\`\`${transcriptContent}\`\`\``)
+          .setTitle(`Transcript - ${timestamp}`)
 
         await transcriptChannel.send({ 
           content: `<@${ticket.userId}> - **#${ticket.ticketId}**`, 
-          embeds: [transcriptEmbed] 
+          embeds: [transcriptEmbed], 
+          files: [new AttachmentBuilder(transcriptFilePath)]
         });
+
+        // Delete the local transcript file after sending
+        fs.unlinkSync(transcriptFilePath);
       }
 
       await Ticket.deleteOne({ channelId: channel.id });
