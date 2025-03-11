@@ -24,13 +24,12 @@ module.exports = {
             );
         });
 
-        const embed = {
-            color: 0x2f82ee,
-            title: "Get your Roles",
-            description: "📣 `Announcements` - Recieve important news about Welcomer.\n\n⚒️ `Updates` - Get the important new features on Welcomer.\n\n💥 `Outages` - Notified whenever Welcomer runs into an issue."
-        };
+        const description = 
+        "📣 **Announcements** - Receive important news about Welcomer.\n\n" +
+        "⚒️ **Updates** - Get the latest new features for Welcomer.\n\n" +
+        "💥 **Outages** - Be notified whenever Welcomer encounters an issue.";
 
-        const sentMessage = await channel.send({ embeds: [embed], components: [buttons] });
+        const sentMessage = await channel.send({ content: description, components: [buttons] });
 
         await interaction.reply({ content: "Sent!", flags: MessageFlags.Ephemeral });
     }
