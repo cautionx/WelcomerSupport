@@ -8,7 +8,7 @@ module.exports = {
     if (interaction.customId === "create_ticket") {
       const modal = new ModalBuilder()
         .setCustomId("ticket_reason")
-        .setTitle("Support Ticket");
+        .setTitle(`Support Ticket - ${interaction.user.username}`);
 
       const reasonInput = new TextInputBuilder()
         .setCustomId("reason")
