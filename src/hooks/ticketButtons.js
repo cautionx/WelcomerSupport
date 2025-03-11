@@ -70,7 +70,6 @@ module.exports = {
           .setColor("Blue")
           .setTitle(`Transcript - (${timestamp})`)
           .setDescription(transcriptContent.length > 4000 ? "Transcript too long to display." : `\`\`\`${transcriptContent}\`\`\``)
-          .setTimestamp();
 
         await transcriptChannel.send({ 
           content: `<@${ticket.userId}> - **#${ticket.ticketId}**`, 
