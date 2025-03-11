@@ -1,4 +1,4 @@
-const { Events, PermissionFlagsBits, MessageFlags, EmbedBuilder } = require("discord.js");
+const { Events, EmbedBuilder, MessageFlags } = require("discord.js");
 const Ticket = require("../structure/ticket_structure");
 const config = require("../config/ticket_config.json");
 
@@ -23,10 +23,8 @@ module.exports = {
         return interaction.reply({ content: "This ticket has already been marked as solved.", flags: MessageFlags.Ephemeral });
       }
 
-      // Rename channel to show it's solved
       await channel.setName(`✅${channel.name}`);
 
-      // Create solved confirmation embed
       const solvedEmbed = new EmbedBuilder()
         .setColor("Green")
         .setTitle('Ticket Solved')
@@ -34,7 +32,6 @@ module.exports = {
 
       await channel.send({ embeds: [solvedEmbed] });
 
-      // Update the ticket as solved in the database
       ticket.solved = true;
       await ticket.save();
 
@@ -44,23 +41,41 @@ module.exports = {
     if (customId === "close_ticket") {
       await interaction.reply({ content: "Ticket closing in 4 seconds...", flags: MessageFlags.Ephemeral });
 
-      // Generate transcript
+      // Fetch and organize messages
       const messages = await channel.messages.fetch({ limit: 100 });
-      const transcriptContent = messages
-        .sort((a, b) => a.createdTimestamp - b.createdTimestamp)
-        .map(msg => `[${new Date(msg.createdTimestamp).toLocaleString()}] ${msg.author.tag}: ${msg.content || (msg.attachments.size > 0 ? "[Attachment]" : "")}`)
-        .join("\n");
+      const sortedMessages = messages.sort((a, b) => a.createdTimestamp - b.createdTimestamp);
+      
+      let transcriptContent = sortedMessages.map(msg => {
+        const time = new Date(msg.createdTimestamp).toLocaleString();
+        const attachments = msg.attachments.size > 0 
+          ? `\nAttachments: ${msg.attachments.map(att => att.url).join(", ")}`
+          : "";
+        return `[${time}] **${msg.author.username}**: ${msg.content || "(No Text)"}${attachments}`;
+      }).join("\n");
 
-      // Send transcript to transcript channel
+      if (!transcriptContent) transcriptContent = "No messages recorded in this ticket.";
+
+      const timestamp = new Date().toLocaleString("en-US", { 
+        year: "numeric", 
+        month: "2-digit", 
+        day: "2-digit", 
+        hour: "2-digit", 
+        minute: "2-digit", 
+        hour12: true 
+      });
+
       const transcriptChannel = guild.channels.cache.get(config.transcriptChannel);
       if (transcriptChannel) {
         const transcriptEmbed = new EmbedBuilder()
           .setColor("Blue")
-          .setTitle(`Transcripts`)
+          .setTitle(`Transcript - (${timestamp})`)
           .setDescription(transcriptContent.length > 4000 ? "Transcript too long to display." : `\`\`\`${transcriptContent}\`\`\``)
-          .setTimestamp()
+          .setTimestamp();
 
-        await transcriptChannel.send({ content: `<@${ticket.userId}> - **#${ticket.ticketId}**`, embeds: [transcriptEmbed] });
+        await transcriptChannel.send({ 
+          content: `<@${ticket.userId}> - **#${ticket.ticketId}**`, 
+          embeds: [transcriptEmbed] 
+        });
       }
 
       await Ticket.deleteOne({ channelId: channel.id });
