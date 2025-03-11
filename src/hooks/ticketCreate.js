@@ -85,7 +85,7 @@ module.exports = {
         components: [buttonRow]
       });
 
-      await interaction.reply({ content: `Ticket created: ${ticketChannel}`, flags: MessageFlags.Ephemeral });
+      await interaction.reply({ content: `Ticket Created: ${ticketChannel}`, flags: MessageFlags.Ephemeral });
     }
   }
 };
