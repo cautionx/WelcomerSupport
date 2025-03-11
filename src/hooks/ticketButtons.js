@@ -19,7 +19,6 @@ module.exports = {
       return interaction.reply({ content: "You don't have permission to use this!", flags: MessageFlags.Ephemeral });
     }
 
-    // Prevent marking as solved if already solved
     if (customId === "mark_solved") {
       if (ticket.solved) {
         return interaction.reply({ content: "This ticket has already been marked as solved.", flags: MessageFlags.Ephemeral });
@@ -43,7 +42,6 @@ module.exports = {
     if (customId === "close_ticket") {
       await interaction.reply({ content: "Ticket closing in 4 seconds...", flags: MessageFlags.Ephemeral });
 
-      // Fetch and organize messages
       const messages = await channel.messages.fetch({ limit: 100 });
       const sortedMessages = messages.sort((a, b) => a.createdTimestamp - b.createdTimestamp);
       
@@ -66,7 +64,6 @@ module.exports = {
         hour12: true 
       });
 
-      // Save transcript to file
       const transcriptFileName = `transcript_${ticket.ticketId}.txt`;
       const transcriptFilePath = path.join(__dirname, transcriptFileName);
       fs.writeFileSync(transcriptFilePath, transcriptContent, "utf-8");
@@ -83,7 +80,6 @@ module.exports = {
           files: [new AttachmentBuilder(transcriptFilePath)]
         });
 
-        // Delete the local transcript file after sending
         fs.unlinkSync(transcriptFilePath);
       }
 

@@ -16,7 +16,7 @@ module.exports = {
       const existingTicket = await Ticket.findOne({ userId });
       if (existingTicket) {
         return interaction.reply({ 
-          content: "You already have an open ticket! Please close your existing ticket before creating a new one.", 
+          content: "You already have an open ticket!", 
           flags: MessageFlags.Ephemeral
         });
       }
