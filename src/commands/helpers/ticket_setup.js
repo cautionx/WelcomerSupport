@@ -19,9 +19,15 @@ module.exports = {
       .setEmoji("📩")
       .setStyle(ButtonStyle.Secondary);
 
-    const row = new ActionRowBuilder().addComponents(button);
+    const but2 = new ButtonBuilder()
+      .setStyle(ButtonStyle.Link)
+      .setLabel('FAQ')
+      .setURL('https://discord.com/channels/1292277321436500039/1305649023755223153')
 
-    const cont = "**Welcomer Support**\n\nIf you require assistance with the Welcomer bot, please open a support ticket below.\n\nOur helpers are dedicated to providing prompt and effective support to ensure your experience is seamless."
+
+    const row = new ActionRowBuilder().addComponents(button, but2);
+
+    const cont = "**Welcomer Support**\n\nIf you require assistance with the Welcomer bot, please open a support ticket below.\n\nOur helpers are dedicated to providing prompt and effective support to ensure your experience is seamless.\n\nBefore opening a support ticket make sure you have viewed our FAQ."
 
     await ticketChannel.send({ content: cont, components: [row] });
 
