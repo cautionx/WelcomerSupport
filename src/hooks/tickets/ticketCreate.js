@@ -79,11 +79,13 @@ module.exports = {
       .setTitle('Further Information')
       .setDescription('Please make sure to provide images, logs and any other helpful information that will help resolve your issue.\n\nOnce your issue is resolved, please press the ✅ button below to mark the request as resolved.')
 
-      await ticketChannel.send({
+      const message = await ticketChannel.send({
         content: `<@${interaction.user.id}> - **#${ticketNumber}**`,
         embeds: [embed, information],
         components: [buttonRow]
-      });
+    });
+
+      await message.pin(); 
 
       await interaction.reply({ content: `Ticket Created: ${ticketChannel}`, flags: MessageFlags.Ephemeral });
     }
