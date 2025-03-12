@@ -29,7 +29,7 @@ module.exports = {
                     .setStyle(ButtonStyle.Secondary)
             );
 
-        await interaction.editReply({
+        await interaction.channel.send({
             embeds: [embed],
             components: [row],
             flags: MessageFlags.Ephemeral
