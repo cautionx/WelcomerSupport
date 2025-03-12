@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const Ticket = require("../../structure/ticket_structure");
+const config = require('../../../config');
 
 module.exports = {
     name: "tickets",
@@ -12,10 +13,10 @@ module.exports = {
         }
 
         const embed = new EmbedBuilder()
-            .setColor('Orange')
+            .setColor(config.colour.embed1)
             .setTitle(`Tickets (${tickets.length})`)
             .setDescription(tickets.map(ticket =>
-                `**#${ticket.ticketId}** - <#${ticket.channelId}> - <@${ticket.userId}> (**<t:${Math.floor(ticket.createdAt / 1000)}:R>**)`
+                `**#${ticket.ticketId}** [<#${ticket.channelId}> -- <@${ticket.userId}>] (**<t:${Math.floor(ticket.createdAt / 1000)}:R>**)`
             ).join("\n"))
 
         message.channel.send({ embeds: [embed] });
