@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, MessageFlags } = require('discord.js');
+const config = require('../../../config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,9 +10,9 @@ module.exports = {
         await interaction.deferReply({ flags: MessageFlags.Ephemeral }); 
 
         const embed = new EmbedBuilder()
-            .setTitle(`FAQ`)
-            .setDescription('Use the buttons displayed below to find out some frequentley asked questions!')
-
+            .setTitle('FAQ')
+            .setDescription('Use the buttons displayed below to find out some frequently asked questions!')
+            .setColor(config.colour.embed1); 
 
         const row = new ActionRowBuilder()
             .addComponents(
@@ -31,7 +32,11 @@ module.exports = {
 
         await interaction.channel.send({
             embeds: [embed],
-            components: [row],
+            components: [row]
+        });
+
+        await interaction.editReply({
+            content: 'Sent!',
             flags: MessageFlags.Ephemeral
         });
     }
