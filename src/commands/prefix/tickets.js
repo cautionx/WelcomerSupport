@@ -5,6 +5,7 @@ module.exports = {
     name: "tickets",
     description: "Lists all open tickets.",
     async execute(message, args) {
+        let query = { userId: message.author.id, solved: false };
 
         const tickets = await Ticket.find(query);
 
