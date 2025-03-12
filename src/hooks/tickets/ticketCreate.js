@@ -31,8 +31,20 @@ module.exports = {
           { id: guild.id, 
             deny: [PermissionFlagsBits.ViewChannel] },
 
-          { id: userId, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages], 
-            deny: [PermissionFlagsBits.MentionEveryone, PermissionFlagsBits.UseApplicationCommands, PermissionFlagsBits.SendPolls, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.CreatePrivateThreads] },
+          { id: userId, 
+            allow: [
+              PermissionFlagsBits.ViewChannel, 
+              PermissionFlagsBits.SendMessages
+            ], 
+            deny: [
+              PermissionFlagsBits.MentionEveryone, 
+              PermissionFlagsBits.UseApplicationCommands, 
+              PermissionFlagsBits.SendPolls, 
+              PermissionFlagsBits.CreatePublicThreads, 
+              PermissionFlagsBits.CreatePrivateThreads, 
+              PermissionFlagsBits.UseExternalApps
+            ] 
+          },
 
           ...config.staffRoles.map(roleId => ({ id: roleId, allow: [PermissionFlagsBits.ViewChannel] }))
         ]
