@@ -32,7 +32,7 @@ module.exports = {
             deny: [PermissionFlagsBits.ViewChannel] },
 
           { id: userId, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages], 
-            deny: [PermissionFlagsBits.MentionEveryone, PermissionFlagsBits.UseApplicationCommands] },
+            deny: [PermissionFlagsBits.MentionEveryone, PermissionFlagsBits.UseApplicationCommands, PermissionFlagsBits.SendPolls, PermissionFlagsBits.CreatePublicThreads, PermissionFlagsBits.CreatePrivateThreads] },
 
           ...config.staffRoles.map(roleId => ({ id: roleId, allow: [PermissionFlagsBits.ViewChannel] }))
         ]
