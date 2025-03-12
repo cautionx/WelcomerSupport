@@ -83,8 +83,12 @@ module.exports = {
       // Embed for ticket channel
       const embed = new EmbedBuilder()
         .setColor('Blue')
-        .setAuthor({ name: `${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
-        .addFields({ name: '**Why do you need support?**', value: `\`\`\`${reason}\`\`\`` });
+        .setAuthor(
+          { name: `${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }
+        )
+        .addFields(
+          { name: '**Why do you need support?**', value: `\`\`\`${reason}\`\`\`` }
+        );
 
       const information = new EmbedBuilder()
       .setColor('Blue')
