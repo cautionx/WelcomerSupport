@@ -9,29 +9,26 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ flags: MessageFlags.Ephemeral }); 
 
-        const embed = new EmbedBuilder()
-            .setTitle('FAQ')
-            .setDescription('Use the buttons displayed below to find out some frequently asked questions!')
-            .setColor(config.colour.embed1); 
-
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId('but1')
-                    .setLabel('1')
+                    .setLabel('q1')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('but2')
-                    .setLabel('2')
+                    .setLabel('q2')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('but3')
-                    .setLabel('3')
+                    .setLabel('q3')
                     .setStyle(ButtonStyle.Secondary)
             );
 
+            const faqdesc = "❓**Frequently Asked Questions**\nUse the buttons displayed below to find out some questions which are commonly asked."
+
         await interaction.channel.send({
-            embeds: [embed],
+            content: [faqdesc],
             components: [row]
         });
 
