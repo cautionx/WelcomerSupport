@@ -76,7 +76,7 @@ module.exports = {
       const solvedButton = new ButtonBuilder()
         .setCustomId("mark_solved")
         .setEmoji("✅")
-        .setStyle(ButtonStyle.Secondary);
+        .setStyle(ButtonStyle.Success);
 
       const buttonRow = new ActionRowBuilder().addComponents(lockButton, unlockButton, solvedButton, closeButton);
 
