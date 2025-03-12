@@ -19,6 +19,16 @@ module.exports = {
       return interaction.reply({ content: "You don't have permission to use this!", flags: MessageFlags.Ephemeral });
     }
 
+    if (customId === "lock_ticket") {
+      await channel.permissionOverwrites.edit(ticket.userId, { SendMessages: false });
+      await interaction.reply({ content: "Ticket has been locked.", flags: MessageFlags.Ephemeral });
+    }
+
+    if (customId === "unlock_ticket") {
+      await channel.permissionOverwrites.edit(ticket.userId, { SendMessages: true });
+      await interaction.reply({ content: "Ticket has been unlocked.", flags: MessageFlags.Ephemeral });
+    }
+
     if (customId === "mark_solved") {
       if (ticket.solved) {
         return interaction.reply({ content: "This ticket has already been marked as solved.", flags: MessageFlags.Ephemeral });
