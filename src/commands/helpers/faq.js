@@ -28,7 +28,7 @@ module.exports = {
             const faqdesc = "❓**Frequently Asked Questions**\nUse the buttons displayed below to find out some questions which are commonly asked."
 
         await interaction.channel.send({
-            content: [faqdesc],
+            content: `${faqdesc}`,
             components: [row]
         });
 
