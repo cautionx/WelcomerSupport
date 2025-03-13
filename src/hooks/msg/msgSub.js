@@ -25,7 +25,7 @@ module.exports = {
         return interaction.followUp({ content: "Invalid message type. Please choose 'embed' or 'text'.", flags: MessageFlags.Ephemeral });
       }
 
-      await interaction.followUp({ content: "Message sent successfully!", flags: MessageFlags.Ephemeral });
+      await interaction.followUp({ content: "Sent!", flags: MessageFlags.Ephemeral });
     }
   }
 };
