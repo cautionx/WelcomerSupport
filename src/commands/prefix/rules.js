@@ -21,11 +21,6 @@ Ensure you are following Discord's Terms of Service and Community Guidelines.
 Do not advertise without permission from the server staff.  
 \` 6 \` **Use Appropriate Channel**  
 Keep discussions relevant to the channel topics.
-_ _
-**Useful Links:**
-[Invite Welcomer](<https://discord.com/oauth2/authorize?client_id=1292277755270008872>)  
-[Vote](<https://top.gg/1292277755270008872>)  
-[Donate](<https://buymeacoffee.com/joewelcomer>)
         `;
 
         message.channel.send(rules);
