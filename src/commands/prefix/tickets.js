@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionFlagsBits } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const Ticket = require("../../structure/ticket_structure");
 const config = require("../../../config");
 const permissions = require("../../config/perm.json");
