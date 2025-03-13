@@ -1,36 +1,34 @@
-const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("msg")
-    .setDescription("Developer Command"),
-
+    .setDescription("Send a custom message via a modal"),
+  
   async execute(interaction) {
     const modal = new ModalBuilder()
       .setCustomId("message_modal")
       .setTitle("Message Customization");
 
-    // Choose Message Type (Embed or Text)
     const messageTypeInput = new TextInputBuilder()
       .setCustomId("message_type")
-      .setLabel("Choose Message Type:")
+      .setLabel("Type")
       .setStyle(TextInputStyle.Short)
       .setRequired(true)
-      .setPlaceholder("Type 'embed' for an embed or 'text' for a plain message");
+      .setPlaceholder("'embed' or 'text'");
 
     const messageContentInput = new TextInputBuilder()
       .setCustomId("message_content")
-      .setLabel("Enter the Content:")
+      .setLabel("Message")
       .setStyle(TextInputStyle.Paragraph)
       .setRequired(true)
-      .setPlaceholder("Enter the content for your message");
+      .setPlaceholder("Type...");
 
-    const actionRow1 = new ActionRowBuilder().addComponents(messageTypeInput);
-    const actionRow2 = new ActionRowBuilder().addComponents(messageContentInput);
-
-    modal.addComponents(actionRow1, actionRow2);
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(messageTypeInput),
+      new ActionRowBuilder().addComponents(messageContentInput)
+    );
 
     await interaction.showModal(modal);
   }
 };
-
