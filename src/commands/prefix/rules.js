@@ -23,7 +23,6 @@ Do not advertise without permission from the server staff.
 Keep discussions relevant to the channel topics.
 _ _
 **Useful Links:**
-[App Directory](<https://discord.com/discovery/applications/1292277755270008872?preview=true>)  
 [Invite Welcomer](<https://discord.com/oauth2/authorize?client_id=1292277755270008872>)  
 [Vote](<https://top.gg/1292277755270008872>)  
 [Donate](<https://buymeacoffee.com/joewelcomer>)
