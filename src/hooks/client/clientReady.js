@@ -19,6 +19,6 @@ module.exports = {
     async execute(client) {
         await clientLogin(client);
 
-        client.user.setActivity('📌 Use #support for any issues!', { type: 4 }); 
+        client.user.setActivity('📌 Use #support for help!', { type: 4 }); 
     }
 }
