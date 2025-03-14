@@ -18,5 +18,7 @@ module.exports = {
     name: Events.ClientReady,
     async execute(client) {
         await clientLogin(client);
+
+        client.user.setActivity('📌 Use #support for any issues!', { type: 4 }); 
     }
 }
