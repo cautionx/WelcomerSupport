@@ -17,9 +17,9 @@ module.exports = {
           .setColor(config.colour.embed1)
           .setDescription(content);
 
-        await targetChannel.send({ embeds: [embed] });
+        await interaction.channel.send({ embeds: [embed] });
       } else if (messageType === "text") {
-        await targetChannel.send({ content: content });
+        await interaction.channel.send({ content: content });
       } else {
         return interaction.followUp({ content: "Invalid message type. Please choose 'embed' or 'text'.", flags: MessageFlags.Ephemeral });
       }
