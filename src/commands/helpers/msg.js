@@ -3,7 +3,7 @@ const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, Act
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("msg")
-    .setDescription("Send a custom message via a modal"),
+    .setDescription("-"),
   
   async execute(interaction) {
     const modal = new ModalBuilder()

@@ -4,7 +4,7 @@ const config = require("../../config/rr_config.json");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("rr")
-        .setDescription("Developer Command")
+        .setDescription("-")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction) {

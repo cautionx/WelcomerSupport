@@ -4,7 +4,7 @@ const config = require("../../config/ticket_config.json");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("setup")
-    .setDescription("Developer Command")
+    .setDescription("-")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   async execute(interaction) {
