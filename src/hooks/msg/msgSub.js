@@ -1,6 +1,5 @@
 const { Events, EmbedBuilder, MessageFlags } = require("discord.js");
 const config = require("../../../config");
-const permConfig = require("../../config/perm_.json");
 
 module.exports = {
   name: Events.InteractionCreate,
